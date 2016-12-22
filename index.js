@@ -4,13 +4,13 @@
 var MarchingSquaresJS = require('./marchingsquares-isobands');
 //from https://github.com/RaumZeit/MarchingSquares.js, added module.export
 
-var turfFeaturecollection = require('turf-featurecollection');
-var turfHelpers = require('turf-helpers');
+var turfFeaturecollection = require('@turf/collect');
+var turfHelpers = require('@turf/helpers');
 var turfPolygon = turfHelpers.polygon;
 var turfMultiPolygon = turfHelpers.multiPolygon;
-var turfExplode = require('turf-explode');
-var turfInside = require('turf-inside');
-var turfArea = require('turf-area');
+var turfExplode = require('@turf/explode');
+var turfInside = require('@turf/inside');
+var turfArea = require('@turf/area');
 
 
 /*******************************************************************
@@ -138,10 +138,10 @@ module.exports = function (pointGrid, z, breaks) {
         // (i.e. smaller area)
         var nestedRings = orderByArea(isobands);
         var contourSet = groupNestedRings(nestedRings);
-        contours.push({
-            "contourSet": contourSet,
-            [z]: +breaks[i] //make sure it's a number
-        });
+        var obj = {};
+        obj["contourSet"] = contourSet;
+        obj[z] = +breaks[i]; //make sure it's a number
+        contours.push(obj);
     }
 
     
@@ -159,7 +159,9 @@ module.exports = function (pointGrid, z, breaks) {
 
     // creates GEOJson MultiPolygons from the contours
     var multipolygons = contours.map(function (contour) {
-        return turfMultiPolygon(contour.contourSet, {[z]: contour[z]});
+        var obj = {};
+        obj[z] = contour[z];
+        return turfMultiPolygon(contour.contourSet, obj);
     });
     
     //return a GEOJson FeatureCollection of MultiPolygons

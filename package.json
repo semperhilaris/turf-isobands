@@ -35,7 +35,6 @@
   "dependencies": {
     "@turf/area": "^3.7.0",
     "@turf/explode": "^3.7.0",
-    "@turf/collect": "^3.7.0",
     "@turf/helpers": "^3.6.3",
     "@turf/inside": "^3.7.0"
   },

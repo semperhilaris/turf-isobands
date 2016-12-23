@@ -4,7 +4,7 @@
 var MarchingSquaresJS = require('./marchingsquares-isobands');
 //from https://github.com/RaumZeit/MarchingSquares.js, added module.export
 
-var turfFeaturecollection = require('@turf/collect');
+var turfFeaturecollection = require('@turf/helpers').featureCollection;
 var turfHelpers = require('@turf/helpers');
 var turfPolygon = turfHelpers.polygon;
 var turfMultiPolygon = turfHelpers.multiPolygon;
